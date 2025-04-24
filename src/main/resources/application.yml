@@ -1,1 +1,5 @@
-spring.application.name=boot-jwt-max
+spring:
+  application:
+    name: boot-jwt-max
+  profiles:
+    active: dev
