@@ -8,6 +8,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,11 +31,14 @@ public class SecurityConfig {
         // 전체 허용
         http
                 // .csrf
+                .csrf(AbstractHttpConfigurer::disable) // POST, PUT...
                 // .cors
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 상태 해제
                 .authorizeHttpRequests(
 //                auth -> auth.anyRequest().permitAll()
                         auth -> auth
+                                .requestMatchers("/api/auth/**")
+                                .permitAll()
                                 .requestMatchers("/api/**")
                                 .authenticated()
                                 .anyRequest().permitAll()
