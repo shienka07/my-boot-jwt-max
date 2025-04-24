@@ -19,7 +19,7 @@ import java.util.List;
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
-    @Value("@{jwt.expiration-ms}")
+    @Value("${jwt.expiration-ms}")
     private long expirationMs;
 
     public SecretKey getSecretKey() {
